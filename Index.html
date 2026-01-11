@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Welcome to 6th Grade! 👾</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="/_sdk/data_sdk.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2001@1.1/CookieRun-Regular.css">
+    <link href="https://fonts.googleapis.com/css2?family=Gaegu:wght@400;700&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --bg-dark: #121212;
+            --mc-green: #38e038;
+            --mc-purple: #bc13fe;
+            --pixel-white: #ffffff;
+            --bg-start: #ffeef8;
+            --bg-mid: #fff5e6;
+            --bg-end: #e6f3ff;
+        }
+
+        body {
+            background-color: var(--bg-dark);
+            color: var(--pixel-white);
+            font-family: 'CookieRun-Regular', sans-serif;
+            margin: 0;
+            background-image: radial-gradient(circle, #222 1px, transparent 1px);
+            background-size: 30px 30px;
+            scroll-behavior: smooth;
+        }
+
+        .pixel-card {
+            background: #333;
+            border: 4px solid #fff;
+            box-shadow: 10px 10px 0px var(--mc-purple);
+            padding: 30px;
+            margin: 20px auto;
+            width: 90%;
+            max-width: 650px;
+            position: relative;
+        }
+
+        .gradient-bg { 
+            background: linear-gradient(135deg, var(--bg-start), var(--bg-mid), var(--bg-end));
+            position: relative;
+            overflow: hidden;
+        }
+
+        @keyframes bounce { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-15px); } }
+        .bounce-animation { animation: bounce 2s ease-in-out infinite; }
+        
+        .heart-float { 
+            position: absolute; z-index: 50; pointer-events: none;
+            animation: float-up 3s ease-out forwards; 
+        }
+        @keyframes float-up { 
+            0% { transform: translateY(0) scale(1); opacity: 1; } 
+            100% { transform: translateY(-300px) scale(1.5); opacity: 0; } 
+        }
+
+        .rainbow { animation: rainbow 3s linear infinite; }
+        @keyframes rainbow { 0% { filter: hue-rotate(0deg); } 100% { filter: hue-rotate(360deg); } }
+
+        .inventory-item {
+            background: #444; border: 2px solid #888; padding: 15px;
+            display: flex; align-items: center; gap: 10px; transition: 0.2s;
+        }
+        .inventory-item:hover { background: #555; border-color: var(--mc-green); transform: scale(1.03); }
+        
+        #birthday-section-wrapper { display: none; }
+    </style>
+</head>
+<body class="flex flex-col items-center">
+
+    <header class="text-center py-20">
+        <h1 class="text-5xl md:text-6xl font-bold uppercase" style="color: var(--mc-green); text-shadow: 6px 6px 0px #004d00;">Level Up: Grade 6</h1>
+        <p class="mt-4 text-xl">함께 모험을 떠날 준비 되었나요? ⚔️</p>
+    </header>
+
+    <section class="pixel-card flex flex-col md:flex-row items-center gap-6">
+        <div class="w-[120px] h-[120px] bg-[#444] border-4 border-[#38e038] flex-shrink-0">
+            <svg viewBox="0 0 16 16" shape-rendering="crispEdges">
+                <path d="M4 1h8v1h2v2h1v5h-1v2h-1v2H3v-2H2v-2H1V4h1V2h2V1z" fill="#4B2C20"/>
+                <path d="M4 4h8v7H4V4z" fill="#FFDBAC"/>
+                <rect x="5" y="6" width="2" height="2" fill="#000"/>
+                <rect x="9" y="6" width="2" height="2" fill="#000"/>
+                <rect x="7" y="9" width="2" height="1" fill="#E57373"/>
+                <path d="M3 11h10v5H3v-5z" fill="#bc13fe"/>
+            </svg>
+        </div>
+        <div class="info-box text-center md:text-left">
+            <h2 class="text-2xl text-[#38e038] mb-2">Teacher Profile</h2>
+            <p><strong>Name:</strong> 김현아 선생님</p>
+            <p><strong>Class:</strong> 6학년 8반 (The Final Boss)</p>
+            <p><strong>Skill:</strong> 고민 들어주기, 게임 같이 하기</p>
+        </div>
+    </section>
+
+    <section class="pixel-card">
+        <h2 class="text-2xl mb-4 text-[#38e038]">Quest Rules 📜</h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
+            <div class="inventory-item">🍎 친구와 선생님께 예의 지키기</div>
+            <div class="inventory-item">💎 서로 배려하고 돕기</div>
+            <div class="inventory-item">⚔️ 자신의 학교생활에 책임감 갖기</div>
+            <div class="inventory-item">🏹 긍정적인 마음으로 도전하기</div>
+        </div>
+    </section>
+
+    <section class="pixel-card">
+        <h2 class="text-2xl mb-4 text-[#38e038]">Graduation D-Day 🎓</h2>
+        <div class="bg-black border-2 border-dashed border-[#38e038] py-6 text-center">
+            <div id="timer" class="text-3xl md:text-4xl text-[#38e038]" style="text-shadow: 0 0 10px #38e038;">00d 00h 00m 00s</div>
+        </div>
+    </section>
+
+    <div class="my-12">
+        <button id="btn-open-birthday" class="px-8 py-4 bg-[#bc13fe] border-4 border-white text-white text-xl md:text-2xl font-bold hover:scale-105 active:scale-95 transition-all shadow-[8px_8px_0px_#444]">
+            🎁 오늘의 주인공 확인하기 🎁
+        </button>
+    </div>
+
+    <div id="birthday-section-wrapper" class="gradient-bg py-20 w-full">
+        <div id="hearts-container" class="absolute inset-0 pointer-events-none"></div>
+        
+        <div class="max-w-xl mx-auto bg-white rounded-[40px] shadow-2xl p-10 text-center relative z-10 text-gray-800">
+            <div class="mb-4">
+                <span id="today-date-display" class="bg-pink-100 text-pink-500 px-6 py-2 rounded-full font-bold">2026.01.11</span>
+            </div>
+            <div class="text-8xl mb-4 bounce-animation">🎂</div>
+            <h2 class="text-5xl font-bold rainbow mb-6" style="font-family: 'Gaegu';">생일 축하해!</h2>
+            
+            <div class="bg-white border-4 border-pink-200 p-6 rounded-3xl inline-block mb-8">
+                <p class="text-gray-400 text-sm mb-2">🌟 오늘의 주인공 🌟</p>
+                <p id="birthday-name-display" class="text-4xl font-black text-pink-500" style="font-family: 'Gaegu';">로딩 중...</p>
+            </div>
+
+            <div class="mb-10">
+                <button id="btn-celebrate-action" class="px-12 py-4 bg-gradient-to-r from-pink-500 to-yellow-400 text-white rounded-full text-xl font-bold hover:shadow-lg transition">
+                    🎉 축하해주기 🎉
+                </button>
+            </div>
+
+            <hr class="border-pink-100 mb-10">
+
+            <div class="text-left">
+                <h3 class="text-xl font-bold mb-4 text-pink-500" style="font-family: 'Gaegu';">🎂 우리 반 생일 명단 관리</h3>
+                <form id="student-add-form" class="flex flex-wrap gap-2 mb-6">
+                    <input type="text" id="in-name" placeholder="이름" class="border-2 border-pink-100 rounded-xl px-4 py-2 w-28 focus:border-pink-400 outline-none" required>
+                    <input type="number" id="in-month" placeholder="월" min="1" max="12" class="border-2 border-pink-100 rounded-xl px-3 py-2 w-20" required>
+                    <input type="number" id="in-day" placeholder="일" min="1" max="31" class="border-2 border-pink-100 rounded-xl px-3 py-2 w-20" required>
+                    <button type="submit" class="bg-pink-500 text-white px-6 py-2 rounded-xl font-bold hover:bg-pink-600 transition flex-grow">추가</button>
+                </form>
+
+                <div id="student-list-container" class="space-y-2 max-h-60 overflow-y-auto pr-2">
+                    </div>
+            </div>
+        </div>
+    </div>
+
+    <footer class="py-20 opacity-40 text-sm text-center">
+        <p>Press [F5] to Refresh Memories | 2026 6th Grade</p>
+    </footer>
+
+    <script>
+        // 1. 졸업 타이머
+        const targetDate = new Date("January 8, 2027 09:00:00").getTime();
+        function updateTimer() {
+            const now = new Date().getTime();
+            const diff = targetDate - now;
+            const d = Math.floor(diff / (1000 * 60 * 60 * 24));
+            const h = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const m = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+            const s = Math.floor((diff % (1000 * 60)) / 1000);
+            document.getElementById("timer").innerHTML = `${d}d ${h}h ${m}m ${s}s`;
+        }
+        setInterval(updateTimer, 1000);
+
+        // 2. 생일 섹션 제어 및 데이터 로직
+        let students = [];
+        const now = new Date();
+        document.getElementById('today-date-display').innerText = `${now.getFullYear()}.${now.getMonth()+1}.${now.getDate()}`;
+
+        document.getElementById('btn-open-birthday').addEventListener('click', () => {
+            const wrapper = document.getElementById('birthday-section-wrapper');
+            wrapper.style.display = 'block';
+            wrapper.scrollIntoView({ behavior: 'smooth' });
+            fireHearts();
+        });
+
+        // 3. 데이터 핸들러 (서버 연동용)
+        const dataHandler = {
+            onDataChanged(data) {
+                students = data;
+                renderBirthdayHero();
+                renderStudentList();
+            }
+        };
+
+        function renderBirthdayHero() {
+            const m = now.getMonth() + 1;
+            const d = now.getDate();
+            const heroes = students.filter(s => s.birth_month == m && s.birth_day == d);
+            const nameTarget = document.getElementById('birthday-name-display');
+            nameTarget.innerText = heroes.length > 0 ? heroes.map(h => h.student_name).join(', ') : '오늘은 생일인 친구가 없어요';
+        }
+
+        function renderStudentList() {
+            const container = document.getElementById('student-list-container');
+            container.innerHTML = '';
+            const sorted = [...students].sort((a,b) => a.birth_month - b.birth_month || a.birth_day - b.birth_day);
+            sorted.forEach(s => {
+                const row = document.createElement('div');
+                row.className = "flex justify-between items-center bg-pink-50 p-3 rounded-xl border border-pink-100 text-sm";
+                row.innerHTML = `
+                    <div class="font-bold text-gray-700">🎂 ${s.student_name} <span class="text-xs font-normal text-gray-400">(${s.birth_month}/${s.birth_day})</span></div>
+                    <button onclick="removeData('${s.__backendId}')" class="text-red-400 hover:text-red-600 font-bold px-2">삭제</button>
+                `;
+                container.appendChild(row);
+            });
+        }
+
+        // 4. 데이터 추가/삭제 기능
+        document.getElementById('student-add-form').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const name = document.getElementById('in-name').value;
+            const m = parseInt(document.getElementById('in-month').value);
+            const d = parseInt(document.getElementById('in-day').value);
+            if(name && m && d) {
+                if(window.dataSdk) {
+                    await window.dataSdk.create({ student_name: name, birth_month: m, birth_day: d });
+                    e.target.reset();
+                } else {
+                    // SDK가 없을 경우 로컬 테스트용
+                    students.push({ student_name: name, birth_month: m, birth_day: d, __backendId: Date.now().toString() });
+                    dataHandler.onDataChanged(students);
+                    e.target.reset();
+                }
+            }
+        });
+
+        window.removeData = async (id) => {
+            if(window.dataSdk) {
+                const target = students.find(s => s.__backendId === id);
+                if(target) await window.dataSdk.delete(target);
+            } else {
+                students = students.filter(s => s.__backendId !== id);
+                dataHandler.onDataChanged(students);
+            }
+        };
+
+        // 5. 하트 팡파르
+        function fireHearts() {
+            const container = document.getElementById('hearts-container');
+            const emojis = ['💖','💗','💓','💝','💕'];
+            for(let i=0; i<15; i++) {
+                setTimeout(() => {
+                    const h = document.createElement('div');
+                    h.className = 'heart-float text-3xl';
+                    h.innerText = emojis[Math.floor(Math.random()*emojis.length)];
+                    h.style.left = (Math.random() * 80 + 10) + '%';
+                    h.style.bottom = '10%';
+                    container.appendChild(h);
+                    setTimeout(() => h.remove(), 3000);
+                }, i * 150);
+            }
+        }
+
+        document.getElementById('btn-celebrate-action').addEventListener('click', fireHearts);
+
+        // 초기화
+        async function initApp() {
+            if (window.dataSdk) {
+                await window.dataSdk.init(dataHandler);
+            }
+            updateTimer();
+        }
+        initApp();
+    </script>
+</body>
+</html>
